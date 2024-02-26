@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Produtos</title>
+    <link rel="stylesheet" href="{% static 'produtos/styles.css' %}">
+</head>
+<body>
+    <div class="search-container">
+        <form action="{% url 'pesquisa_produto' %}" method="get">
+            <input type="text" name="q" value="{{ query }}" placeholder="Digite o código ou descrição">
+            <button type="submit">Pesquisar</button>
+        </form>
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código do Produto</th>
+                    <th>Descrição</th>
+                    <th>Preço Líquido</th>
+                    <th>Venda</th>
+                    <th>Revenda</th>
+                    <th>Atacado</th>
+                    <!-- Outras colunas conforme necessário -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                    <tr data-codigo="{{ produto.codigo_do_produto }}" data-descricao="{{ produto.descricao }}" data-venda="{{ produto.venda }}" data-revenda="{{ produto.revenda }}" data-atacado="{{ produto.atacado }}"onclick="abrirModal(this)">
+                        <td>{{ produto.codigo_do_produto }}</td>
+                        <td>{{ produto.descricao }}</td>
+                        <td>R$ {{ produto.preco_liquido }}</td>
+                        <td>R$ {{ produto.venda }}</td>
+                        <td>R$ {{ produto.revenda }}</td>
+                        <td>R$ {{ produto.atacado }}</td>
+                        <!-- Outros campos conforme necessário -->
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">Nenhum produto encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="produtoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalhes do Produto</h2>
+            <p id="modalCodigoDoProduto"></p>
+            <p id="modalDescricao"></p>
+            <p id="modalVenda"></p>
+            <p id="modalRevenda"></p>
+            <p id="modalAtacado"></p>
+
+            <!-- Aqui você pode adicionar mais elementos para as informações adicionais -->
+        </div>
+    </div>
+
+    <script>
+    // JavaScript para abrir e fechar o modal
+    function abrirModal(row) {
+        // Preenche os detalhes do produto no modal
+        document.getElementById('modalCodigoDoProduto').textContent = 'Código: ' + row.dataset.codigo;
+        document.getElementById('modalDescricao').textContent = 'Descrição: ' + row.dataset.descricao;
+        document.getElementById('modalVenda').textContent = 'Venda: ' + row.dataset.venda;
+        document.getElementById('modalRevenda').textContent = 'Revenda: ' + row.dataset.revenda;
+        document.getElementById('modalAtacado').textContent = 'Atacado: ' + row.dataset.atacado;
+
+        
+        // Exibe o modal
+        document.getElementById('produtoModal').style.display = 'block';
+    }
+
+    // Quando o usuário clica no botão de fechar (x), fecha o modal
+    document.getElementsByClassName('close')[0].onclick = function() {
+        document.getElementById('produtoModal').style.display = 'none';
+    }
+
+    // Quando o usuário clica fora do modal, fecha o modal
+    window.onclick = function(event) {
+        var modal = document.getElementById('produtoModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    </script>
+</body>
+</html>
