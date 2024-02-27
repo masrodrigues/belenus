@@ -56,6 +56,15 @@ tr:nth-child(even) {
     background-color: #e4e4e4;
 }
 
+table tr:hover {
+    background-color: #77a2ff; /* Cor de fundo ao passar o mouse */
+}
+
+table tr:focus-within {
+    background-color: #77a2ff; /* Cor de fundo ao receber foco */
+}
+
+
 /* Estilos para o modal */
 .modal {
     display: none; /* Escondido por padrão */
@@ -169,7 +178,7 @@ tr:nth-child(even) {
 
 #modalRevenda,
 #modalAtacado {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #28527a;
     font-weight: bold;
     margin-bottom: 12px;
@@ -177,7 +186,7 @@ tr:nth-child(even) {
 
 #modalVenda
  {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #dc3545;
     font-weight: bold;
     margin-bottom: 12px;
