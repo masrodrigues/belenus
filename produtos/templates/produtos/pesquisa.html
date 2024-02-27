@@ -58,7 +58,27 @@
     <!-- Modal -->
     <div id="produtoModal" class="modal">
         <div class="modal-content">
-            
+            <form id="formAlterarProduto" method="post">
+                <!-- Token CSRF para segurança -->
+                {% csrf_token %}
+                
+                <!-- Campos do formulário com valores pré-definidos que serão substituídos pelo JavaScript -->
+                <input type="hidden" name="produto_id" id="modalProdutoId" value="">
+                <div class="form-group">
+                    <label for="modalCodigoDoProduto">Código:</label>
+                    <input type="text" id="modalCodigoDoProduto" name="codigo" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label for="modalDescricao">Descrição:</label>
+                    <input type="text" id="modalDescricao" name="descricao" class="form-control" value="">
+                </div>
+                <!-- Outros campos do produto conforme necessário -->
+                
+                <!-- Botão para submeter a alteração -->
+                <button type="submit" class="button-common">Alterar</button>
+            </form>
+
+
             <span class="close">&times;</span>
             <h2>Detalhes do Produto</h2>
             <p id="modalCodigoDoProduto"></p>
