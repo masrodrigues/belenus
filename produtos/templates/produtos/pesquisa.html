@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="logo-container">
-        <img src="{% static '/produtos/logo.svg' %}" alt="Logo" class="logo">
+        <img src="{% static 'produtos/logo.svg' %}" alt="Logo" class="logo">
     </div>
 
     <div class="search-container">
@@ -18,7 +18,6 @@
             <input type="text" name="q" value="{{ query }}" placeholder="Digite o código ou descrição">
             <button type="submit" class="button-common">Pesquisar</button>
             <button type="button" class="button-common clear-button" onclick="limparBusca()">Limpar</button>
-
         </form>
     </div>
     
@@ -32,19 +31,17 @@
                     <th>Venda</th>
                     <th>Revenda</th>
                     <th>Atacado</th>
-                    <!-- Outras colunas conforme necessário -->
                 </tr>
             </thead>
             <tbody>
                 {% for produto in produtos %}
-                    <tr data-codigo="{{ produto.codigo_do_produto }}" data-descricao="{{ produto.descricao }}" data-venda="{{ produto.venda }}" data-revenda="{{ produto.revenda }}" data-atacado="{{ produto.atacado }}"onclick="abrirModal(this)">
+                    <tr data-codigo="{{ produto.codigo_do_produto }}" data-descricao="{{ produto.descricao }}" data-venda="{{ produto.venda }}" data-revenda="{{ produto.revenda }}" data-atacado="{{ produto.atacado }}" onclick="abrirModal(this)">
                         <td>{{ produto.codigo_do_produto }}</td>
                         <td>{{ produto.descricao }}</td>
                         <td>R$ {{ produto.preco_liquido }}</td>
                         <td>R$ {{ produto.venda }}</td>
                         <td>R$ {{ produto.revenda }}</td>
                         <td>R$ {{ produto.atacado }}</td>
-                        <!-- Outros campos conforme necessário -->
                     </tr>
                 {% empty %}
                     <tr>
@@ -55,80 +52,101 @@
         </table>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal de Detalhes do Produto -->
     <div id="produtoModal" class="modal">
         <div class="modal-content">
-            <form id="formAlterarProduto" method="post">
-                <!-- Token CSRF para segurança -->
-                {% csrf_token %}
-                
-                <!-- Campos do formulário com valores pré-definidos que serão substituídos pelo JavaScript -->
-                <input type="hidden" name="produto_id" id="modalProdutoId" value="">
-                <div class="form-group">
-                    <label for="modalCodigoDoProduto">Código:</label>
-                    <input type="text" id="modalCodigoDoProduto" name="codigo" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                    <label for="modalDescricao">Descrição:</label>
-                    <input type="text" id="modalDescricao" name="descricao" class="form-control" value="">
-                </div>
-                <!-- Outros campos do produto conforme necessário -->
-                
-                <!-- Botão para submeter a alteração -->
-                <button type="submit" class="button-common">Alterar</button>
-            </form>
-
-
-            <span class="close">&times;</span>
+            <span class="close" onclick="fecharModal('produtoModal')">&times;</span>
             <h2>Detalhes do Produto</h2>
             <p id="modalCodigoDoProduto"></p>
             <p id="modalDescricao"></p>
             <p id="modalVenda"></p>
             <p id="modalRevenda"></p>
             <p id="modalAtacado"></p>
+            <button type="button" class="button-common" id="botaoEditar">Editar</button>
+        </div>
+    </div>
 
-            <div class="modal-logo-container">
-                <img src="{% static 'produtos/logo.svg' %}" alt="Logo" class="modal-logo">
-            </div>
+    <!-- Modal de Edição do Produto -->
+    <div id="editarProdutoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('editarProdutoModal')">&times;</span>
+            <h2>Editar Produto</h2>
+            <form id="formEditarProduto" action="{% url 'produto_update' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="editProdutoId" name="produto_id">
+                <div class="form-group">
+                    <label for="editCodigo">Código:</label>
+                    <input type="text" id="editCodigo" name="codigo">
+                </div>
+                <div class="form-group">
+                    <label for="editDescricao">Descrição:</label>
+                    <input type="text" id="editDescricao" name="descricao">
+                </div>
+                <div class="form-group">
+                    <label for="editVenda">Venda:</label>
+                    <input type="text" id="editVenda" name="venda">
+                </div>
+                <div class="form-group">
+                    <label for="editRevenda">Revenda:</label>
+                    <input type="text" id="editRevenda" name="revenda">
+                </div>
+                <div class="form-group">
+                    <label for="editAtacado">Atacado:</label>
+                    <input type="text" id="editAtacado" name="atacado">
+                </div>
+                <button type="submit" class="button-common">Salvar Alterações</button>
+            </form>
         </div>
     </div>
 
     <script>
-    // JavaScript para abrir e fechar o modal
-    function abrirModal(row) {
-        // Preenche os detalhes do produto no modal
-    document.getElementById('modalCodigoDoProduto').textContent = 'Código: ' + row.dataset.codigo;
-    document.getElementById('modalDescricao').textContent = 'Descrição: ' + row.dataset.descricao;
-    document.getElementById('modalVenda').textContent = 'Venda: R$ ' + row.dataset.venda;
-    document.getElementById('modalRevenda').textContent = 'Revenda: R$ ' + row.dataset.revenda;
-    document.getElementById('modalAtacado').textContent = 'Atacado: R$ ' + row.dataset.atacado;
+        let produtoAtual; // Armazena os dados do produto atual
 
-        
-        // Exibe o modal
-        document.getElementById('produtoModal').style.display = 'block';
-    }
+        function abrirModal(row) {
+            produtoAtual = {
+                codigo: row.dataset.codigo,
+                descricao: row.dataset.descricao,
+                venda: row.dataset.venda,
+                revenda: row.dataset.revenda,
+                atacado: row.dataset.atacado
+            };
 
-    // Quando o usuário clica no botão de fechar (x), fecha o modal
-    document.getElementsByClassName('close')[0].onclick = function() {
-        document.getElementById('produtoModal').style.display = 'none';
-    }
+            document.getElementById('modalCodigoDoProduto').textContent = 'Código: ' + produtoAtual.codigo;
+            document.getElementById('modalDescricao').textContent = 'Descrição: ' + produtoAtual.descricao;
+            document.getElementById('modalVenda').textContent = 'Venda: R$ ' + produtoAtual.venda;
+            document.getElementById('modalRevenda').textContent = 'Revenda: R$ ' + produtoAtual.revenda;
+            document.getElementById('modalAtacado').textContent = 'Atacado: R$ ' + produtoAtual.atacado;
 
-    // Quando o usuário clica fora do modal, fecha o modal
-    window.onclick = function(event) {
-        var modal = document.getElementById('produtoModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
+            document.getElementById('produtoModal').style.display = 'block';
+            document.getElementById('botaoEditar').onclick = function() { abrirModalEdicao(); };
         }
-    }
 
-    function limparBusca() {
-        // Limpa o campo de busca
-        document.querySelector('input[name="q"]').value = '';
-    
-        // Opcional: Recarrega a página ou redireciona para a página inicial da busca
-        // window.location.href = 'URL_DA_PÁGINA_DE_BUSCA';
-    }
-    
+        function abrirModalEdicao() {
+            document.getElementById('editCodigo').value = produtoAtual.codigo;
+            document.getElementById('editDescricao').value = produtoAtual.descricao;
+            document.getElementById('editVenda').value = produtoAtual.venda;
+            document.getElementById('editRevenda').value = produtoAtual.revenda;
+            document.getElementById('editAtacado').value = produtoAtual.atacado;
+
+            document.getElementById('editarProdutoModal').style.display = 'block';
+        }
+
+        function fecharModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function limparBusca() {
+            console.log('Limpar busca foi chamado'); // Para testar se a função está sendo chamada
+            document.querySelector('input[name="q"]').value = '';
+           
+        }
+        
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
