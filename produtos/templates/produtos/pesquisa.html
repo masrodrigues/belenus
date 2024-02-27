@@ -16,7 +16,9 @@
     <div class="search-container">
         <form action="{% url 'pesquisa_produto' %}" method="get">
             <input type="text" name="q" value="{{ query }}" placeholder="Digite o código ou descrição">
-            <button type="submit" class="buttonPesquisar">Pesquisar</button>
+            <button type="submit" class="button-common">Pesquisar</button>
+            <button type="button" class="button-common clear-button" onclick="limparBusca()">Limpar</button>
+
         </form>
     </div>
     
@@ -98,6 +100,15 @@
             modal.style.display = 'none';
         }
     }
+
+    function limparBusca() {
+        // Limpa o campo de busca
+        document.querySelector('input[name="q"]').value = '';
+    
+        // Opcional: Recarrega a página ou redireciona para a página inicial da busca
+        // window.location.href = 'URL_DA_PÁGINA_DE_BUSCA';
+    }
+    
     </script>
 </body>
 </html>

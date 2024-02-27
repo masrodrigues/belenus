@@ -5,6 +5,29 @@ body {
     background: #fff;
 }
 
+
+/* Estilização comum para botões */
+.button-common {
+    font-family: 'Arial', sans-serif; /* Define a fonte para Arial */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #505050; /* Cor do texto */
+    background-color: #007bff; /* Cor de fundo */
+    border: none; /* Remove a borda */
+    padding: 10px 20px; /* Preenchimento ao redor do texto */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    border-radius: 5px; /* Bordas arredondadas */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: background-color 0.3s; /* Transição suave para o background-color */
+}
+
+/* Estilização ao passar o mouse sobre o botão */
+.button-common:hover {
+    background-color: #5ba7f8; /* Cor de fundo um pouco mais escura */
+    color: #ffffff; /* Cor do texto */
+}
+
+/* Adicione a classe button-common aos botões no seu HTML */
+
 .search-container {
     background: #f2f2f2;
     padding: 20px;
@@ -184,14 +207,19 @@ table tr:focus-within {
     margin-bottom: 12px;
 }
 
-#modalVenda
- {
-    font-size: 1.3rem;
-    color: #dc3545;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
+#modalVenda {
+    font-family: 'Roboto', serif; /* Mudar a fonte para algo mais clássico */
+    font-size: 1.5rem; /* Aumentar o tamanho da fonte */
+    color: #c82333; /* Mudar a cor para vermelho escuro */
+    font-weight: bold; /* Tornar o texto em negrito */
+    background-color: #ffd5d9; /* Adicionar um fundo suave */
+    padding: 5px; /* Adicionar um pouco de preenchimento */
+    display: inline-block; /* Fazer o fundo contornar apenas o texto */
+    margin: 5px 0; /* Adicionar uma margem acima e abaixo */
+    border-radius: 5px; /* Adicionar bordas arredondadas */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Adicionar uma sombra suave */
 /* Animação do modal aparecendo do topo */
+}
 @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
@@ -213,3 +241,5 @@ table tr:focus-within {
     margin: 0 auto; /* Centraliza horizontalmente */
     padding: 10px 0; /* Adiciona um pouco de espaço acima e abaixo */
 }
+
+
