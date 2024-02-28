@@ -223,7 +223,7 @@ table tr:focus-within {
     background-color: #ffd5d9; /* Adicionar um fundo suave */
     padding: 5px; /* Adicionar um pouco de preenchimento */
     display: inline-block; /* Fazer o fundo contornar apenas o texto */
-    margin: 10px 10px; /* Adicionar uma margem acima e abaixo */
+    margin: 20px 10px; /* Adicionar uma margem acima e abaixo */
     border-radius: 5px; /* Adicionar bordas arredondadas */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Adicionar uma sombra suave */
 
@@ -247,10 +247,16 @@ table tr:focus-within {
 .modal-logo {
     display: block; /* Ocupa toda a largura disponível */
     max-width: 100px; /* Ajuste para o tamanho desejado */
-   
+    margin: 0 auto; /* Centraliza horizontalmente */
     padding: 10px 0; /* Adiciona um pouco de espaço acima e abaixo */
 }
 
+.modal-logo img {
+    height: 50px;
+    display: block;
+    margin: 0 auto; /* Centraliza a imagem dentro do .modal-logo */
+    max-width: 100%; /* Garante que a imagem não exceda a largura de .modal-logo */
+}
 
 /* Adicionando estilos específicos para a classe form-control */
 .form-control {
