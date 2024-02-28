@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from produtos.views import pesquisa_produto
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('produtos/', include('produtos.urls')),  # Inclua esta linha
+    path('', pesquisa_produto, name='home'),  # Adiciona esta linha
+    
 ]
