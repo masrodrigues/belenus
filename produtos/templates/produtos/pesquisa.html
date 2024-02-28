@@ -72,6 +72,7 @@
             <span class="close" onclick="fecharModal('editarProdutoModal')">&times;</span>
             <h2>Editar Produto</h2>
             <form id="formEditarProduto" action="{% url 'produto_update' %}" method="post">
+
                 {% csrf_token %}
                 <input type="hidden" id="editProdutoId" name="produto_id">
                 <div class="form-group">

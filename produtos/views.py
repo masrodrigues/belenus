@@ -15,31 +15,43 @@ def pesquisa_produto(request):
     return render(request, 'produtos/pesquisa.html', {'produtos': produtos, 'query': query})
 
 def produto_update(request):
+    print("Função produto_update chamada")
     if request.method == 'POST':
         produto_id = request.POST.get('produto_id')
         codigo = request.POST.get('codigo')
         descricao = request.POST.get('descricao')
-        venda = request.POST.get('venda', None)
-        revenda = request.POST.get('revenda', None)
-        atacado = request.POST.get('atacado', None)
+        venda = request.POST.get('venda', '').strip()
+        revenda = request.POST.get('revenda', '').strip()
+        atacado = request.POST.get('atacado', '').strip()
 
         if not produto_id:
             messages.error(request, 'ID do produto não fornecido.')
-            return redirect('pesquisa_produto') # Corrigido para usar o nome da URL
+            return redirect('pesquisa_produto')
         
         produto = get_object_or_404(Produto, pk=produto_id)
         produto.codigo_do_produto = codigo
         produto.descricao = descricao
 
-        # Atualiza os campos se forem fornecidos
-        if venda is not None:
-            produto.venda = venda
-        if revenda is not None:
-            produto.revenda = revenda
-        if atacado is not None:
-            produto.atacado = atacado
+        # Verifica se os campos não estão vazios antes de tentar converter
+        if venda:
+            try:
+                produto.venda = float(venda)
+                print("Venda atualizada para:", venda)
+            except ValueError:
+                messages.error(request, 'Formato inválido para o campo de venda.')
+        
+        if revenda:
+            try:
+                produto.revenda = float(revenda)
+            except ValueError:
+                messages.error(request, 'Formato inválido para o campo de revenda.')
+
+        if atacado:
+            try:
+                produto.atacado = float(atacado)
+            except ValueError:
+                messages.error(request, 'Formato inválido para o campo de atacado.')
 
         produto.save()
-
         messages.success(request, 'Produto atualizado com sucesso.')
-        return redirect('pesquisa_produto') # Corrigido para usar o nome da URL
+        return redirect('pesquisa_produto')
