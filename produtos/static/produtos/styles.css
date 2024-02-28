@@ -68,11 +68,13 @@ th {
     background: #ffcc00;
     color: #fff;
     padding: 10px;
+    font-size: 15px; /* Tamanho da fonte ajustado para o cabeçalho */
 }
 
 td {
     text-align: left;
     padding: 10px;
+    font-size: 14px; /* Tamanho da fonte ajustado para o cabeçalho */
 }
 
 tr:nth-child(even) {
@@ -201,7 +203,8 @@ table tr:focus-within {
 
 #modalRevenda,
 #modalAtacado {
-    font-size: 1.5rem;
+    font-family: 'Roboto', serif; /* Mudar a fonte para algo mais clássico */
+    font-size: 1.1rem;
     color: #28527a;
     font-weight: bold;
     background-color: #ffd5d9; /* Adicionar um fundo suave */
@@ -214,7 +217,7 @@ table tr:focus-within {
 
 #modalVenda {
     font-family: 'Roboto', serif; /* Mudar a fonte para algo mais clássico */
-    font-size: 1.5rem; /* Aumentar o tamanho da fonte */
+    font-size: 1.1rem; /* Aumentar o tamanho da fonte */
     color: #c82333; /* Mudar a cor para vermelho escuro */
     font-weight: bold; /* Tornar o texto em negrito */
     background-color: #ffd5d9; /* Adicionar um fundo suave */
@@ -244,7 +247,7 @@ table tr:focus-within {
 .modal-logo {
     display: block; /* Ocupa toda a largura disponível */
     max-width: 100px; /* Ajuste para o tamanho desejado */
-    margin: 0 auto; /* Centraliza horizontalmente */
+   
     padding: 10px 0; /* Adiciona um pouco de espaço acima e abaixo */
 }
 
