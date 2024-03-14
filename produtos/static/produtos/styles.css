@@ -83,6 +83,7 @@ tr:nth-child(even) {
 
 table tr:hover {
     background-color: #77a2ff; /* Cor de fundo ao passar o mouse */
+    cursor:pointer; 
 }
 
 table tr:focus-within {
