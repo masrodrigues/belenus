@@ -31,7 +31,9 @@ body {
 .search-container {
     background: #f2f2f2;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
 .search-container input[type="text"] {
@@ -48,6 +50,14 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-right: 10px; /* Adiciona margem à direita */
+}
+.data-tabela {
+    margin-left: 10px; /* ou o valor desejado */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    font-style: italic; /* Estilo da fonte */
+    font-weight: bold;
 }
 
 .table-container {
