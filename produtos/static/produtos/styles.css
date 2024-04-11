@@ -256,6 +256,20 @@ table tr:focus-within {
     margin-top: 20px ;
     height: 50px; /* Ajuste conforme necessário */
 }
+
+.quantidade-produtos {
+    font-size: 16px;
+    color: #333;
+    font-style: italic;
+    padding: 10px 20px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    color: #28527a;
+    font-weight: bold;
+    border: 1px solid #28527a;
+    border-radius: 5px;
+}
+
 .modal-logo {
     display: block; /* Ocupa toda a largura disponível */
     max-width: 100px; /* Ajuste para o tamanho desejado */
@@ -395,15 +409,3 @@ table tr:focus-within {
 }
 
 /* Adiciona estilos à informação da quantidade de produtos encontrados */
-.quantidade-produtos {
-    font-size: 16px;
-    color: #333;
-    font-style: italic;
-    padding: 10px 20px;
-    margin-left: 30px;
-    margin-bottom: 15px;
-    color: #28527a;
-    font-weight: bold;
-    border: 1px solid #28527a;
-    border-radius: 5px;
-}
