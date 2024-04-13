@@ -12,12 +12,13 @@
 
 </head>
 <body>
-    <div class="logo-container">
-        <img src="{% static 'produtos/logo.svg' %}" alt="Logo" class="logo">
-        
-    </div>
+    
 
     <div class="search-container">
+        <div class="logo-container">
+            <img src="{% static 'produtos/logo.svg' %}" alt="Logo" class="logo">
+            
+        </div>
         <form action="{% url 'pesquisa_produto' %}" method="get" class="form-flex">
             <input type="text" name="q" value="{{ query }}" placeholder="Digite o código ou descrição">
             <button type="submit" class="button-common">Pesquisar</button>
