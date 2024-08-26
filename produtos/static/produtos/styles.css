@@ -253,6 +253,7 @@ table tr:focus-within {
     height: 50px; /* Ajuste conforme necessário */
 }
 
+/* mostra quantidade */
 .quantidade-produtos {
     font-size: 16px;
     color: #333;
